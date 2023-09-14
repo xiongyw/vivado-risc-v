@@ -254,3 +254,7 @@ You can open the project in Vivado GUI to see RISC-V SoC structure, make changes
 The SoC occupies portion of FPGA, leaving plenty of space for experiments and developing additional hardware.
 
 RISC-V SoC in this repo uses BSCAN block to support both RISC-V debugging and FPGA access over same JTAG cable.
+
+# How to add other boards?
+
+https://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@github.com/xiongyw://github.com/eugene-tarassov/vivado-risc-v/discussions/104/
