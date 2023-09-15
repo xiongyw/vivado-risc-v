@@ -1,0 +1,34 @@
+{
+  "config": {
+    "items": [
+      {
+        "infra": {
+          "name": "vu13p",
+          "display": "Virtex UltraScale+ VU13P Accelerator Board",
+          "revision": "1.0",
+          "description": "Virtex-UltraScale+ FPGA part on the board",
+          "company": "A company",
+          "company_display": "A company",
+          "author": "Community",
+          "contributors": [
+            {
+              "group": "A company",
+              "url": ""
+            }
+          ],
+          "category": "Single Part",
+          "website": "http://",
+          "logo": "vu13p.jpeg",
+          "search-keywords": [
+            "vu13p",
+            "A company",
+            "board",
+            "Single Part"
+          ]
+        }
+      }
+    ]
+  },
+  "_major": 1,
+  "_minor": 0
+}
