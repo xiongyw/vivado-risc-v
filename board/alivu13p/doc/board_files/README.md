@@ -13,3 +13,5 @@ bruin@plnx ~ $ tree /opt/xilinx/Vivado/2023.1/data/boards/board_files
 
 2 directories, 5 files
 ```
+
+Check UG895 Appendix A for details on board files.
