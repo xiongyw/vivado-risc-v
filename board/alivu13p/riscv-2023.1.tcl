@@ -244,7 +244,7 @@ proc create_hier_cell_IO { parentCell nameHier } {
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_main
 
-  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_express_x16
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pcie_x16
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 pcie_refclk
 
@@ -257,8 +257,8 @@ proc create_hier_cell_IO { parentCell nameHier } {
   create_bd_pin -dir I -from 15 -to 0 eth_status
   create_bd_pin -dir O -from 7 -to 0 interrupts
   create_bd_pin -dir I -type rst pcie_perstn
-  create_bd_pin -dir I usb_uart_rxd
-  create_bd_pin -dir O usb_uart_txd
+  create_bd_pin -dir I uart_rxd
+  create_bd_pin -dir O uart_txd
   create_bd_pin -dir O user_lnk_up
 
   # Create instance: Ethernet, and set properties
@@ -383,7 +383,7 @@ proc create_hier_cell_IO { parentCell nameHier } {
   connect_bd_intf_net -intf_net axi_iic_0_IIC [get_bd_intf_pins iic_main] [get_bd_intf_pins IIC/IIC]
   connect_bd_intf_net -intf_net qdma_0_M_AXI [get_bd_intf_pins qdma_0/M_AXI] [get_bd_intf_pins smartconnect_2/S00_AXI]
   connect_bd_intf_net -intf_net qdma_0_M_AXI_LITE [get_bd_intf_pins qdma_0/M_AXI_LITE] [get_bd_intf_pins smartconnect_0/S00_AXI]
-  connect_bd_intf_net -intf_net qdma_0_pcie_mgt [get_bd_intf_pins pci_express_x16] [get_bd_intf_pins qdma_0/pcie_mgt]
+  connect_bd_intf_net -intf_net qdma_0_pcie_mgt [get_bd_intf_pins pcie_x16] [get_bd_intf_pins qdma_0/pcie_mgt]
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins IIC/S_AXI] [get_bd_intf_pins smartconnect_0/M00_AXI]
   connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins M01_AXI] [get_bd_intf_pins smartconnect_0/M01_AXI]
   connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins UART/S_AXI_LITE] [get_bd_intf_pins smartconnect_0/M02_AXI]
@@ -404,8 +404,8 @@ proc create_hier_cell_IO { parentCell nameHier } {
   connect_bd_net -net qdma_0_user_lnk_up [get_bd_pins user_lnk_up] [get_bd_pins qdma_0/user_lnk_up]
   connect_bd_net -net status_vector_0_1 [get_bd_pins eth_status] [get_bd_pins Ethernet/status_vector]
   connect_bd_net -net uart_0_interrupt [get_bd_pins UART/interrupt] [get_bd_pins xlconcat_0/In0]
-  connect_bd_net -net usb_uart_rxd [get_bd_pins usb_uart_rxd] [get_bd_pins UART/RxD]
-  connect_bd_net -net usb_uart_txd [get_bd_pins usb_uart_txd] [get_bd_pins UART/TxD]
+  connect_bd_net -net uart_rxd [get_bd_pins uart_rxd] [get_bd_pins UART/RxD]
+  connect_bd_net -net uart_txd [get_bd_pins uart_txd] [get_bd_pins UART/TxD]
   connect_bd_net -net util_ds_buf_IBUF_DS_ODIV2 [get_bd_pins qdma_0/sys_clk] [get_bd_pins util_ds_buf/IBUF_DS_ODIV2]
   connect_bd_net -net util_ds_buf_IBUF_OUT [get_bd_pins qdma_0/sys_clk_gt] [get_bd_pins util_ds_buf/IBUF_OUT]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins Ethernet/mdio_int] [get_bd_pins xlconcat_0/In1] [get_bd_pins xlconcat_0/In4] [get_bd_pins xlconcat_0/In5] [get_bd_pins xlconcat_0/In6] [get_bd_pins xlconcat_0/In7] [get_bd_pins xlconstant_0/dout]
@@ -690,27 +690,27 @@ proc create_root_design { parentCell } {
 
   set ddr4_400mhz_clk0 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 ddr4_400mhz_clk0 ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {300000000} \
+   CONFIG.FREQ_HZ {400000000} \
    ] $ddr4_400mhz_clk0
 
   set ddr4_400mhz_clk1 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 ddr4_400mhz_clk1 ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {300000000} \
+   CONFIG.FREQ_HZ {400000000} \
    ] $ddr4_400mhz_clk1
 
   set ddr4_400mhz_clk2 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 ddr4_400mhz_clk2 ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {300000000} \
+   CONFIG.FREQ_HZ {400000000} \
    ] $ddr4_400mhz_clk2
 
   set ddr4_400mhz_clk3 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 ddr4_400mhz_clk3 ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {300000000} \
+   CONFIG.FREQ_HZ {400000000} \
    ] $ddr4_400mhz_clk3
 
   set eth_rx_axis [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:axis_rtl:1.0 eth_rx_axis ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {156250000} \
+   CONFIG.FREQ_HZ {161132000} \
    CONFIG.HAS_TKEEP {1} \
    CONFIG.HAS_TLAST {1} \
    CONFIG.HAS_TREADY {1} \
@@ -724,12 +724,12 @@ proc create_root_design { parentCell } {
 
   set eth_tx_axis [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 eth_tx_axis ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {156250000} \
+   CONFIG.FREQ_HZ {161132000} \
    ] $eth_tx_axis
 
   set iic_main [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_main ]
 
-  set pci_express_x16 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_express_x16 ]
+  set pcie_x16 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pcie_x16 ]
 
   set pcie_refclk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 pcie_refclk ]
   set_property -dict [ list \
@@ -750,8 +750,8 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
  ] $resetn
-  set usb_uart_rxd [ create_bd_port -dir I usb_uart_rxd ]
-  set usb_uart_txd [ create_bd_port -dir O usb_uart_txd ]
+  set uart_rxd [ create_bd_port -dir I uart_rxd ]
+  set uart_txd [ create_bd_port -dir O uart_txd ]
 
   # Create instance: DDR
   create_hier_cell_DDR [current_bd_instance .] DDR
@@ -804,7 +804,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ddr4_400mhz_clk2 [get_bd_intf_ports ddr4_400mhz_clk2] [get_bd_intf_pins DDR/ddr4_400mhz_clk2]
   connect_bd_intf_net -intf_net ddr4_400mhz_clk3 [get_bd_intf_ports ddr4_400mhz_clk3] [get_bd_intf_pins DDR/ddr4_400mhz_clk3]
   connect_bd_intf_net -intf_net pcie_refclk [get_bd_intf_ports pcie_refclk] [get_bd_intf_pins IO/pcie_refclk]
-  connect_bd_intf_net -intf_net qdma_0_pcie_mgt [get_bd_intf_ports pci_express_x16] [get_bd_intf_pins IO/pci_express_x16]
+  connect_bd_intf_net -intf_net qdma_0_pcie_mgt [get_bd_intf_ports pcie_x16] [get_bd_intf_pins IO/pcie_x16]
   connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins DDR/S_AXI_CTRL] [get_bd_intf_pins IO/M01_AXI]
   connect_bd_intf_net -intf_net smartconnect_2_M00_AXI [get_bd_intf_pins IO/M00_AXI] [get_bd_intf_pins RocketChip/DMA_AXI4]
 
@@ -822,8 +822,8 @@ proc create_root_design { parentCell } {
   connect_bd_net -net reset [get_bd_pins DDR/sys_reset] [get_bd_pins RocketChip/sys_reset] [get_bd_pins resetn_inv_0/Res]
   connect_bd_net -net resetn [get_bd_ports resetn] [get_bd_pins resetn_inv_0/Op1]
   connect_bd_net -net status_vector_0_1 [get_bd_ports eth_status] [get_bd_pins IO/eth_status]
-  connect_bd_net -net usb_uart_rxd [get_bd_ports usb_uart_rxd] [get_bd_pins IO/usb_uart_rxd]
-  connect_bd_net -net usb_uart_txd [get_bd_ports usb_uart_txd] [get_bd_pins IO/usb_uart_txd]
+  connect_bd_net -net uart_rxd [get_bd_ports uart_rxd] [get_bd_pins IO/uart_rxd]
+  connect_bd_net -net uart_txd [get_bd_ports uart_txd] [get_bd_pins IO/uart_txd]
 
   # Create address segments
   set addr_bits [get_property CONFIG.ADDR_WIDTH [get_bd_intf_pins RocketChip/DMA_AXI4]]
