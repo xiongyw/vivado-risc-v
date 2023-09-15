@@ -296,38 +296,62 @@ proc create_hier_cell_IO { parentCell nameHier } {
      return 1
    }
 
+#  # Create instance: qdma_0, and set properties
+#  set qdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:qdma:5.0 qdma_0 ]
+#  set_property -dict [ list \
+#   CONFIG.PCIE_BOARD_INTERFACE {pci_express_x8} \
+#   CONFIG.PF0_MSIX_CAP_TABLE_SIZE_qdma {000} \
+#   CONFIG.PF0_SRIOV_VF_DEVICE_ID {A038} \
+#   CONFIG.PF1_SRIOV_VF_DEVICE_ID {A138} \
+#   CONFIG.PF2_SRIOV_VF_DEVICE_ID {A238} \
+#   CONFIG.PF3_SRIOV_VF_DEVICE_ID {A338} \
+#   CONFIG.SYS_RST_N_BOARD_INTERFACE {pcie_perstn} \
+#   CONFIG.axi_data_width {256_bit} \
+#   CONFIG.axisten_freq {125} \
+#   CONFIG.cfg_mgmt_if {false} \
+#   CONFIG.coreclk_freq {250} \
+#   CONFIG.dma_intf_sel_qdma {AXI_MM} \
+#   CONFIG.dsc_byp_mode {Descriptor_bypass_and_internal} \
+#   CONFIG.en_axi_st_qdma {false} \
+#   CONFIG.en_gt_selection {true} \
+#   CONFIG.mode_selection {Advanced} \
+#   CONFIG.pf0_bar2_scale_qdma {Megabytes} \
+#   CONFIG.pf0_device_id {9028} \
+#   CONFIG.pf0_msix_enabled_qdma {false} \
+#   CONFIG.pf0_pciebar2axibar_2 {0x0000000060000000} \
+#   CONFIG.pf1_bar2_scale_qdma {Megabytes} \
+#   CONFIG.pf2_bar2_scale_qdma {Megabytes} \
+#   CONFIG.pf2_device_id {9228} \
+#   CONFIG.pf3_bar2_scale_qdma {Megabytes} \
+#   CONFIG.pf3_device_id {9328} \
+#   CONFIG.pl_link_cap_max_link_speed {5.0_GT/s} \
+#   CONFIG.pl_link_cap_max_link_width {X8} \
+#   CONFIG.plltype {QPLL1} \
+# ] $qdma_0
+
   # Create instance: qdma_0, and set properties
   set qdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:qdma:5.0 qdma_0 ]
-  set_property -dict [ list \
-   CONFIG.PCIE_BOARD_INTERFACE {pci_express_x8} \
-   CONFIG.PF0_MSIX_CAP_TABLE_SIZE_qdma {000} \
-   CONFIG.PF0_SRIOV_VF_DEVICE_ID {A038} \
-   CONFIG.PF1_SRIOV_VF_DEVICE_ID {A138} \
-   CONFIG.PF2_SRIOV_VF_DEVICE_ID {A238} \
-   CONFIG.PF3_SRIOV_VF_DEVICE_ID {A338} \
-   CONFIG.SYS_RST_N_BOARD_INTERFACE {pcie_perstn} \
-   CONFIG.axi_data_width {256_bit} \
-   CONFIG.axisten_freq {125} \
-   CONFIG.cfg_mgmt_if {false} \
-   CONFIG.coreclk_freq {250} \
-   CONFIG.dma_intf_sel_qdma {AXI_MM} \
-   CONFIG.dsc_byp_mode {Descriptor_bypass_and_internal} \
-   CONFIG.en_axi_st_qdma {false} \
-   CONFIG.en_gt_selection {true} \
-   CONFIG.mode_selection {Advanced} \
-   CONFIG.pf0_bar2_scale_qdma {Megabytes} \
-   CONFIG.pf0_device_id {9028} \
-   CONFIG.pf0_msix_enabled_qdma {false} \
-   CONFIG.pf0_pciebar2axibar_2 {0x0000000060000000} \
-   CONFIG.pf1_bar2_scale_qdma {Megabytes} \
-   CONFIG.pf2_bar2_scale_qdma {Megabytes} \
-   CONFIG.pf2_device_id {9228} \
-   CONFIG.pf3_bar2_scale_qdma {Megabytes} \
-   CONFIG.pf3_device_id {9328} \
-   CONFIG.pl_link_cap_max_link_speed {5.0_GT/s} \
-   CONFIG.pl_link_cap_max_link_width {X8} \
-   CONFIG.plltype {QPLL1} \
- ] $qdma_0
+  set_property -dict [list \
+    CONFIG.PCIE_BOARD_INTERFACE {pci_express_x16} \
+    CONFIG.PF0_SRIOV_VF_DEVICE_ID {A03F} \
+    CONFIG.SYS_RST_N_BOARD_INTERFACE {pcie_perstn} \
+    CONFIG.axi_data_width {512_bit} \
+    CONFIG.axisten_freq {250} \
+    CONFIG.cfg_mgmt_if {false} \
+    CONFIG.dma_intf_sel_qdma {AXI_MM} \
+    CONFIG.dsc_byp_mode {Descriptor_bypass_and_internal} \
+    CONFIG.en_axi_st_qdma {false} \
+    CONFIG.mode_selection {Advanced} \
+    CONFIG.pf0_bar2_scale_qdma {Megabytes} \
+    CONFIG.pf0_device_id {903F} \
+    CONFIG.pf0_msix_enabled_qdma {false} \
+    CONFIG.pf0_pciebar2axibar_2 {0x0000000060000000} \
+    CONFIG.pf2_device_id {923F} \
+    CONFIG.pf3_device_id {933F} \
+    CONFIG.pl_link_cap_max_link_speed {8.0_GT/s} \
+    CONFIG.pl_link_cap_max_link_width {X16} \
+    CONFIG.plltype {QPLL1} \
+  ] $qdma_0
 
   # Create instance: smartconnect_0, and set properties
   set smartconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0 ]
