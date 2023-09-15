@@ -676,10 +676,10 @@ proc create_root_design { parentCell } {
 
 
   # Create interface ports
-  set clk_user [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 clk_user ]
+  set sysclk_100mhz [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 sysclk_100mhz ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {156250000} \
-   ] $clk_user
+   CONFIG.FREQ_HZ {100000000} \
+   ] $sysclk_100mhz
 
   set ddr4_sdram_c0 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:ddr4_rtl:1.0 ddr4_sdram_c0 ]
 
@@ -764,20 +764,38 @@ proc create_root_design { parentCell } {
   global rocket_module_name
   set RocketChip [create_bd_cell -type module -reference $rocket_module_name RocketChip]
 
+#  # Create instance: clk_wiz_0, and set properties
+#  set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
+#  set_property -dict [ list \
+#   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {125.0} \
+#   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125.000} \
+#   CONFIG.CLKOUT2_USED {true} \
+#   CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} \
+#   CONFIG.CLKOUT3_USED {true} \
+#   CONFIG.NUM_OUT_CLKS {3} \
+#   CONFIG.OPTIMIZE_CLOCKING_STRUCTURE_EN {true} \
+#   CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
+#   CONFIG.USE_PHASE_ALIGNMENT {false} \
+#   CONFIG.USE_RESET {false} \
+# ] $clk_wiz_0
+
+
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
-  set_property -dict [ list \
-   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {125.0} \
-   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125.000} \
-   CONFIG.CLKOUT2_USED {true} \
-   CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} \
-   CONFIG.CLKOUT3_USED {true} \
-   CONFIG.NUM_OUT_CLKS {3} \
-   CONFIG.OPTIMIZE_CLOCKING_STRUCTURE_EN {true} \
-   CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
-   CONFIG.USE_PHASE_ALIGNMENT {false} \
-   CONFIG.USE_RESET {false} \
- ] $clk_wiz_0
+  set_property -dict [list \
+    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {31.25} \
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125.000} \
+    CONFIG.CLKOUT2_USED {true} \
+    CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} \
+    CONFIG.CLKOUT3_USED {true} \
+    CONFIG.CLK_IN1_BOARD_INTERFACE {default_sysclk1_100} \
+    CONFIG.NUM_OUT_CLKS {3} \
+    CONFIG.OPTIMIZE_CLOCKING_STRUCTURE_EN {true} \
+    CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
+    CONFIG.USE_BOARD_FLOW {true} \
+    CONFIG.USE_PHASE_ALIGNMENT {false} \
+    CONFIG.USE_RESET {false} \
+  ] $clk_wiz_0
 
   # Create instance: resetn_inv_0, and set properties
   set resetn_inv_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 resetn_inv_0 ]
@@ -795,7 +813,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net RocketChip_MEM_AXI4_2 [get_bd_intf_pins DDR/S_AXI_MEM_2] [get_bd_intf_pins RocketChip/MEM_AXI4_2]
   connect_bd_intf_net -intf_net RocketChip_MEM_AXI4_3 [get_bd_intf_pins DDR/S_AXI_MEM_3] [get_bd_intf_pins RocketChip/MEM_AXI4_3]
   #connect_bd_intf_net -intf_net axi_iic_0_IIC [get_bd_intf_ports iic_main] [get_bd_intf_pins IO/iic_main]
-  connect_bd_intf_net -intf_net clk_user_1 [get_bd_intf_ports clk_user] [get_bd_intf_pins clk_wiz_0/CLK_IN1_D]
+  connect_bd_intf_net -intf_net sysclk_100mhz_1 [get_bd_intf_ports sysclk_100mhz] [get_bd_intf_pins clk_wiz_0/CLK_IN1_D]
   connect_bd_intf_net -intf_net ddr4_sdram_c0 [get_bd_intf_ports ddr4_sdram_c0] [get_bd_intf_pins DDR/ddr4_sdram_c0]
   connect_bd_intf_net -intf_net ddr4_sdram_c1 [get_bd_intf_ports ddr4_sdram_c1] [get_bd_intf_pins DDR/ddr4_sdram_c1]
   connect_bd_intf_net -intf_net ddr4_sdram_c2 [get_bd_intf_ports ddr4_sdram_c2] [get_bd_intf_pins DDR/ddr4_sdram_c2]
