@@ -1,86 +1,106 @@
-# upper QSFP28 Interfaces: FIXME
-set_property -dict {LOC N4  } [get_ports qsfp0_rx1_p] ;# MGTYRXP0_231 GTYE4_CHANNEL_X1Y48 / GTYE4_COMMON_X1Y12
-set_property -dict {LOC N3  } [get_ports qsfp0_rx1_n] ;# MGTYRXN0_231 GTYE4_CHANNEL_X1Y48 / GTYE4_COMMON_X1Y12
-set_property -dict {LOC N9  } [get_ports qsfp0_tx1_p] ;# MGTYTXP0_231 GTYE4_CHANNEL_X1Y48 / GTYE4_COMMON_X1Y12
-set_property -dict {LOC N8  } [get_ports qsfp0_tx1_n] ;# MGTYTXN0_231 GTYE4_CHANNEL_X1Y48 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC M2  } [get_ports qsfp0_rx2_p] ;# MGTYRXP1_231 GTYE4_CHANNEL_X1Y49 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC M1  } [get_ports qsfp0_rx2_n] ;# MGTYRXN1_231 GTYE4_CHANNEL_X1Y49 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC M7  } [get_ports qsfp0_tx2_p] ;# MGTYTXP1_231 GTYE4_CHANNEL_X1Y49 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC M6  } [get_ports qsfp0_tx2_n] ;# MGTYTXN1_231 GTYE4_CHANNEL_X1Y49 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC L4  } [get_ports qsfp0_rx3_p] ;# MGTYRXP2_231 GTYE4_CHANNEL_X1Y50 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC L3  } [get_ports qsfp0_rx3_n] ;# MGTYRXN2_231 GTYE4_CHANNEL_X1Y50 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC L9  } [get_ports qsfp0_tx3_p] ;# MGTYTXP2_231 GTYE4_CHANNEL_X1Y50 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC L8  } [get_ports qsfp0_tx3_n] ;# MGTYTXN2_231 GTYE4_CHANNEL_X1Y50 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC K2  } [get_ports qsfp0_rx4_p] ;# MGTYRXP3_231 GTYE4_CHANNEL_X1Y51 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC K1  } [get_ports qsfp0_rx4_n] ;# MGTYRXN3_231 GTYE4_CHANNEL_X1Y51 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC K7  } [get_ports qsfp0_tx4_p] ;# MGTYTXP3_231 GTYE4_CHANNEL_X1Y51 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC K6  } [get_ports qsfp0_tx4_n] ;# MGTYTXN3_231 GTYE4_CHANNEL_X1Y51 / GTYE4_COMMON_X1Y12
-#set_property -dict {LOC M11 } [get_ports qsfp0_mgt_refclk_0_p] ;# MGTREFCLK0P_231 from U14.4 via U43.13
-#set_property -dict {LOC M10 } [get_ports qsfp0_mgt_refclk_0_n] ;# MGTREFCLK0N_231 from U14.5 via U43.14
-set_property -dict {LOC K11 } [get_ports qsfp0_mgt_refclk_1_p] ;# MGTREFCLK1P_231 from U9.18
-set_property -dict {LOC K10 } [get_ports qsfp0_mgt_refclk_1_n] ;# MGTREFCLK1N_231 from U9.17
-set_property -dict {LOC BE16 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_modsell]
-set_property -dict {LOC BE17 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_resetl]
-set_property -dict {LOC BE20 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp0_modprsl]
-set_property -dict {LOC BE21 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp0_intl]
-set_property -dict {LOC BD18 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_lpmode]
-set_property -dict {LOC AT22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_refclk_reset]
-set_property -dict {LOC AT20 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp0_fs[0]}]
-set_property -dict {LOC AU22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp0_fs[1]}]
+#set_property PACKAGE_PIN    BD21 [get_ports {qsfp_led_y[0]}]
+#set_property PACKAGE_PIN    BE21 [get_ports {qsfp_led_y[1]}]
+#set_property PACKAGE_PIN    BE22 [get_ports {qsfp_led_g[0]}]
+#set_property PACKAGE_PIN    BF22 [get_ports {qsfp_led_g[1]}]
+#set_property IOSTANDARD LVCMOS12 [get_ports {qsfp_led_y[0]}]
+#set_property IOSTANDARD LVCMOS12 [get_ports {qsfp_led_y[1]}]
+#set_property IOSTANDARD LVCMOS12 [get_ports {qsfp_led_g[0]}]
+#set_property IOSTANDARD LVCMOS12 [get_ports {qsfp_led_g[1]}]
 
-# 156.25 MHz MGT reference clock (from SI570)
-#create_clock -period 6.400 -name qsfp0_mgt_refclk_0 [get_ports qsfp0_mgt_refclk_0_p]
+ 
+# 离PCIE金手指较远的up通道选择 233 即可, 对应位置 X1Y52~Y55
+# 离PCIE金手指较近的dn通道选择 229 即可, 对应位置 X1Y36~Y39
+#
+# 参考ug575 P345 :  BANK 233  主要分布在(A/C/D/E)(1~11)
+set_property PACKAGE_PIN E9  [get_ports {qsfp0_tx1_p}] ; # 若使用8线MPO，对应 8 号线  tx_0 ; up_qsfp0_tx_p
+set_property PACKAGE_PIN E8  [get_ports {qsfp0_tx1_n}] ; # 若使用8线MPO，对应 8 号线  tx_0 ; up_qsfp0_tx_n
+#set_property PACKAGE_PIN D7  [get_ports {c2c_master_tx_txp[1]}] ; # 若使用8线MPO，对应 7 号线  tx_1 ; up_qsfp1_tx_p
+#set_property PACKAGE_PIN D6  [get_ports {c2c_master_tx_txn[1]}] ; # 若使用8线MPO，对应 7 号线  tx_1 ; up_qsfp1_tx_n
+#set_property PACKAGE_PIN C9  [get_ports {c2c_slave_tx_txp[0]}]  ; # 若使用8线MPO，对应 6 号线  tx_2 ; up_qsfp2_tx_p
+#set_property PACKAGE_PIN C8  [get_ports {c2c_slave_tx_txn[0]}]  ; # 若使用8线MPO，对应 6 号线  tx_2 ; up_qsfp2_tx_n
+#set_property PACKAGE_PIN A9  [get_ports {c2c_slave_tx_txp[1]}]  ; # 若使用8线MPO，对应 5 号线  tx_3 ; up_qsfp3_tx_p
+#set_property PACKAGE_PIN A8  [get_ports {c2c_slave_tx_txn[1]}]  ; # 若使用8线MPO，对应 5 号线  tx_3 ; up_qsfp3_tx_n
+set_property PACKAGE_PIN E4  [get_ports {qsfp0_rx1_p}] ; # 若使用8线MPO，对应 1 号线  rx_0 ; up_qsfp0_rx_p
+set_property PACKAGE_PIN E3  [get_ports {qsfp0_rx1_n}] ; # 若使用8线MPO，对应 1 号线  rx_0 ; up_qsfp0_rx_n
+#set_property PACKAGE_PIN D2  [get_ports {c2c_master_rx_rxp[1]}] ; # 若使用8线MPO，对应 2 号线  rx_1 ; up_qsfp1_rx_p
+#set_property PACKAGE_PIN D1  [get_ports {c2c_master_rx_rxn[1]}] ; # 若使用8线MPO，对应 2 号线  rx_1 ; up_qsfp1_rx_n
+#set_property PACKAGE_PIN C4  [get_ports {c2c_slave_rx_rxp[0]}]  ; # 若使用8线MPO，对应 3 号线  rx_2 ; up_qsfp2_rx_p
+#set_property PACKAGE_PIN C3  [get_ports {c2c_slave_rx_rxn[0]}]  ; # 若使用8线MPO，对应 3 号线  rx_2 ; up_qsfp2_rx_n
+#set_property PACKAGE_PIN A5  [get_ports {c2c_slave_rx_rxp[1]}]  ; # 若使用8线MPO，对应 4 号线  rx_3 ; up_qsfp3_rx_p
+#set_property PACKAGE_PIN A4  [get_ports {c2c_slave_rx_rxn[1]}]  ; # 若使用8线MPO，对应 4 号线  rx_3 ; up_qsfp3_rx_n
+set_property PACKAGE_PIN    D11     [get_ports qsfp0_mgt_refclk_1_p]
+set_property PACKAGE_PIN    D10     [get_ports qsfp0_mgt_refclk_1_n]
+set_property IOSTANDARD DIFF_SSTL12 [get_ports qsfp0_mgt_refclk_1_p]
+set_property IOSTANDARD DIFF_SSTL12 [get_ports qsfp0_mgt_refclk_1_n]
+#set_property PACKAGE_PIN BC12       [get_ports {up_qsfp_i2c_sda}]
+#set_property PACKAGE_PIN BD8        [get_ports {up_qsfp_i2c_scl}]
+set_property PACKAGE_PIN BA7        [get_ports {up_qsfp_resetl}]  ; #output ,信号拉低会启动完 整模块复位，默认内 部将其上拉至 VCC
+set_property PACKAGE_PIN BC7        [get_ports {qsfp0_modprsl}] ; #input  ,检测模块是否存在
+set_property PACKAGE_PIN BC8        [get_ports {qsfp0_intl}]    ; #input  ,故障输出指示
+set_property PACKAGE_PIN BB9        [get_ports {qsfp0_lpmode}]  ; #output ,低功耗模式，内部默 认上拉至 VCC
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0_i2c_sda}]
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0_i2c_scl}]
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0_resetl}]  ; #output ,信号拉低会启动完 整模块复位，默认内 部将其上拉至 VCC
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0_modprsl}] ; #input  ,检测模块是否存在
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0_intl}]    ; #input  ,故障输出指示
+set_property IOSTANDARD LVCMOS12    [get_ports {qsfp0__lpmode}]  ; #output ,低功耗模式，内部默 认上拉至 VCC
+#set_property PULLUP true            [get_ports {up_qsfp_resetl}]
+#set_property PULLUP true            [get_ports {up_qsfp_lpmode}]
 
-# 156.25 MHz MGT reference clock (from SI5335, FS = 0b01)
-#create_clock -period 6.400 -name qsfp0_mgt_refclk_1 [get_ports qsfp0_mgt_refclk_1_p]
+#############################################################################################
+# FIXME: qsfp0_refclk_reset, qsfp0_fs[1:0], qsfp0_modsell (tied 1)
 
-# 161.1328125 MHz MGT reference clock (from SI5335, FS = 0b10)
-create_clock -period 6.206 -name qsfp0_mgt_refclk_1 [get_ports qsfp0_mgt_refclk_1_p]
+#set_property -dict {LOC K11 } [get_ports qsfp0_mgt_refclk_1_p] ;# MGTREFCLK1P_231 from U9.18
+#set_property -dict {LOC K10 } [get_ports qsfp0_mgt_refclk_1_n] ;# MGTREFCLK1N_231 from U9.17
+#set_property -dict {LOC BE16 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_modsell]
+#set_property -dict {LOC BE17 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_resetl]
+#set_property -dict {LOC BE20 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp0_modprsl]
+#set_property -dict {LOC BE21 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp0_intl]
+#set_property -dict {LOC BD18 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_lpmode]
+#set_property -dict {LOC AT22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp0_refclk_reset]
+#set_property -dict {LOC AT20 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp0_fs[0]}]
+#set_property -dict {LOC AU22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp0_fs[1]}]
+ 
+ 
+## 参考ug575 P345 :  BANK 229  主要分布在(V/W/Y/AA)(1~11)
+#set_property PACKAGE_PIN AA9 [get_ports {dn_qsfp0_tx_p}] ; # 若使用8线MPO，对应 8 号线  tx_0
+#set_property PACKAGE_PIN AA8 [get_ports {dn_qsfp0_tx_n}] ; # 若使用8线MPO，对应 8 号线  tx_0
+#set_property PACKAGE_PIN Y7  [get_ports {dn_qsfp1_tx_p}] ; # 若使用8线MPO，对应 7 号线  tx_1
+#set_property PACKAGE_PIN Y6  [get_ports {dn_qsfp1_tx_n}] ; # 若使用8线MPO，对应 7 号线  tx_1
+#set_property PACKAGE_PIN W9  [get_ports {dn_qsfp2_tx_p}] ; # 若使用8线MPO，对应 6 号线  tx_2
+#set_property PACKAGE_PIN W8  [get_ports {dn_qsfp2_tx_n}] ; # 若使用8线MPO，对应 6 号线  tx_2
+#set_property PACKAGE_PIN V7  [get_ports {dn_qsfp3_tx_p}] ; # 若使用8线MPO，对应 5 号线  tx_3
+#set_property PACKAGE_PIN V6  [get_ports {dn_qsfp3_tx_n}] ; # 若使用8线MPO，对应 5 号线  tx_3
+#set_property PACKAGE_PIN AA4 [get_ports {dn_qsfp0_rx_p}] ; # 若使用8线MPO，对应 1 号线  rx_0
+#set_property PACKAGE_PIN AA3 [get_ports {dn_qsfp0_rx_n}] ; # 若使用8线MPO，对应 1 号线  rx_0
+#set_property PACKAGE_PIN Y2  [get_ports {dn_qsfp1_rx_p}] ; # 若使用8线MPO，对应 2 号线  rx_1
+#set_property PACKAGE_PIN Y1  [get_ports {dn_qsfp1_rx_n}] ; # 若使用8线MPO，对应 2 号线  rx_1
+#set_property PACKAGE_PIN W4  [get_ports {dn_qsfp2_rx_p}] ; # 若使用8线MPO，对应 3 号线  rx_2
+#set_property PACKAGE_PIN W3  [get_ports {dn_qsfp2_rx_n}] ; # 若使用8线MPO，对应 3 号线  rx_2
+#set_property PACKAGE_PIN V2  [get_ports {dn_qsfp3_rx_p}] ; # 若使用8线MPO，对应 4 号线  rx_3
+#set_property PACKAGE_PIN V1  [get_ports {dn_qsfp3_rx_n}] ; # 若使用8线MPO，对应 4 号线  rx_3
+#set_property PACKAGE_PIN    Y11     [get_ports dn_qsfp161_clk_p]
+#set_property PACKAGE_PIN    Y10     [get_ports dn_qsfp161_clk_n]
+#set_property IOSTANDARD DIFF_SSTL12 [get_ports dn_qsfp161_clk_p]
+#set_property IOSTANDARD DIFF_SSTL12 [get_ports dn_qsfp161_clk_n]
+#set_property PACKAGE_PIN BD9        [get_ports {dn_qsfp_i2c_sda}]
+#set_property PACKAGE_PIN BF12       [get_ports {dn_qsfp_i2c_scl}]
+#set_property PACKAGE_PIN BB10       [get_ports {dn_qsfp_resetl}]  ; #output ,信号拉低会启动完 整模块复位，默认内 部将其上拉至 VCC
+#set_property PACKAGE_PIN BB11       [get_ports {dn_qsfp_modprsl}] ; #input  ,检测模块是否存在
+#set_property PACKAGE_PIN BC11       [get_ports {dn_qsfp_intl}]    ; #input  ,故障输出指示
+#set_property PACKAGE_PIN BB7        [get_ports {dn_qsfp_lpmode}]  ; #output ,低功耗模式，内部默 认上拉至 VCC
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_i2c_sda}]
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_i2c_scl}]
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_resetl}]  ; #output ,信号拉低会启动完 整模块复位，默认内 部将其上拉至 VCC
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_modprsl}] ; #input  ,检测模块是否存在
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_intl}]    ; #input  ,故障输出指示
+#set_property IOSTANDARD LVCMOS12    [get_ports {dn_qsfp_lpmode}]  ; #output ,低功耗模式，内部默 认上拉至 VCC
+##set_property PULLUP true            [get_ports {dn_qsfp_resetl}]
+##set_property PULLUP true            [get_ports {dn_qsfp_lpmode}]
 
-set_false_path -to [get_ports {qsfp0_modsell qsfp0_resetl qsfp0_lpmode qsfp0_refclk_reset qsfp0_fs[*]}]
-set_output_delay 0 [get_ports {qsfp0_modsell qsfp0_resetl qsfp0_lpmode qsfp0_refclk_reset qsfp0_fs[*]}]
-set_false_path -from [get_ports {qsfp0_modprsl qsfp0_intl}]
-set_input_delay 0 [get_ports {qsfp0_modprsl qsfp0_intl}]
 
-#set_property -dict {LOC U4  } [get_ports qsfp1_rx1_p] ;# MGTYRXP0_230 GTYE4_CHANNEL_X1Y44 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC U3  } [get_ports qsfp1_rx1_n] ;# MGTYRXN0_230 GTYE4_CHANNEL_X1Y44 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC U9  } [get_ports qsfp1_tx1_p] ;# MGTYTXP0_230 GTYE4_CHANNEL_X1Y44 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC U8  } [get_ports qsfp1_tx1_n] ;# MGTYTXN0_230 GTYE4_CHANNEL_X1Y44 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC T2  } [get_ports qsfp1_rx2_p] ;# MGTYRXP1_230 GTYE4_CHANNEL_X1Y45 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC T1  } [get_ports qsfp1_rx2_n] ;# MGTYRXN1_230 GTYE4_CHANNEL_X1Y45 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC T7  } [get_ports qsfp1_tx2_p] ;# MGTYTXP1_230 GTYE4_CHANNEL_X1Y45 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC T6  } [get_ports qsfp1_tx2_n] ;# MGTYTXN1_230 GTYE4_CHANNEL_X1Y45 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC R4  } [get_ports qsfp1_rx3_p] ;# MGTYRXP2_230 GTYE4_CHANNEL_X1Y46 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC R3  } [get_ports qsfp1_rx3_n] ;# MGTYRXN2_230 GTYE4_CHANNEL_X1Y46 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC R9  } [get_ports qsfp1_tx3_p] ;# MGTYTXP2_230 GTYE4_CHANNEL_X1Y46 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC R8  } [get_ports qsfp1_tx3_n] ;# MGTYTXN2_230 GTYE4_CHANNEL_X1Y46 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC P2  } [get_ports qsfp1_rx4_p] ;# MGTYRXP3_230 GTYE4_CHANNEL_X1Y47 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC P1  } [get_ports qsfp1_rx4_n] ;# MGTYRXN3_230 GTYE4_CHANNEL_X1Y47 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC P7  } [get_ports qsfp1_tx4_p] ;# MGTYTXP3_230 GTYE4_CHANNEL_X1Y47 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC P6  } [get_ports qsfp1_tx4_n] ;# MGTYTXN3_230 GTYE4_CHANNEL_X1Y47 / GTYE4_COMMON_X1Y11
-#set_property -dict {LOC T11 } [get_ports qsfp1_mgt_refclk_0_p] ;# MGTREFCLK0P_230 from U14.4 via U43.15
-#set_property -dict {LOC T10 } [get_ports qsfp1_mgt_refclk_0_n] ;# MGTREFCLK0N_230 from U14.5 via U43.16
-#set_property -dict {LOC P11 } [get_ports qsfp1_mgt_refclk_1_p] ;# MGTREFCLK1P_230 from U12.18
-#set_property -dict {LOC P10 } [get_ports qsfp1_mgt_refclk_1_n] ;# MGTREFCLK1N_230 from U12.17
-#set_property -dict {LOC AY20 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp1_modsell]
-#set_property -dict {LOC BC18 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp1_resetl]
-#set_property -dict {LOC BC19 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp1_modprsl]
-#set_property -dict {LOC AV21 IOSTANDARD LVCMOS12 PULLUP true} [get_ports qsfp1_intl]
-#set_property -dict {LOC AV22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp1_lpmode]
-#set_property -dict {LOC AR21 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports qsfp1_refclk_reset]
-#set_property -dict {LOC AR22 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp1_fs[0]}]
-#set_property -dict {LOC AU20 IOSTANDARD LVCMOS12 SLEW SLOW DRIVE 8} [get_ports {qsfp1_fs[1]}]
 
-# 156.25 MHz MGT reference clock (from SI570)
-#create_clock -period 6.400 -name qsfp1_mgt_refclk_0 [get_ports qsfp1_mgt_refclk_0_p]
 
-# 156.25 MHz MGT reference clock (from SI5335, FS = 0b01)
-#create_clock -period 6.400 -name qsfp1_mgt_refclk_1 [get_ports qsfp1_mgt_refclk_1_p]
 
-# 161.1328125 MHz MGT reference clock (from SI5335, FS = 0b10)
-#create_clock -period 6.206 -name qsfp1_mgt_refclk_1 [get_ports qsfp1_mgt_refclk_1_p]
 
-#set_false_path -to [get_ports {qsfp1_modsell qsfp1_resetl qsfp1_lpmode qsfp1_refclk_reset qsfp1_fs[*]}]
-#set_output_delay 0 [get_ports {qsfp1_modsell qsfp1_resetl qsfp1_lpmode qsfp1_refclk_reset qsfp1_fs[*]}]
-#set_false_path -from [get_ports {qsfp1_modprsl qsfp1_intl}]
-#set_input_delay 0 [get_ports {qsfp1_modprsl qsfp1_intl}]
+

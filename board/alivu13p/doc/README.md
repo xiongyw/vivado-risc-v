@@ -4,17 +4,17 @@ The alivu13p card contains two QSFP28 slots (let's call them "upper" and "down" 
 We use the 6 control signals from the "down" slot for the following 3 peripherals:
 
 - uart:
-    - input (rx):  ModPrsL
-    - output (tx): ResetL
+    - input (rx):  IntL (BC11)
+    - output (tx): LPMode (BB7)
 
 - sdcard (1-bit mode):
-    - output (clk): LPMode
+    - output (clk): ResetL (BB10)
     - inout:
-        - cmd:   SCL
-        - data0: SDA
+        - cmd:   SCL (BF12)
+        - data0: SDA (BD9)
 
 - button:
-    - input (active low): IntL
+    - input (active low): ModPrsL (BB11)
 
 Note that all 6 control signals on the QSFP interface are already level-shifted to 3v3.
 
