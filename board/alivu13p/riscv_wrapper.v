@@ -15,7 +15,7 @@ module riscv_wrapper (
     inout  wire [17:0]ddr4_sdram_c0_dqs_c,
     inout  wire [17:0]ddr4_sdram_c0_dqs_t,
     output wire ddr4_sdram_c0_odt,
-    output wire ddr4_sdram_c0_par,
+    output wire ddr4_sdram_c0_par,  // https://support.xilinx.com/s/article/61585?language=en_US
     output wire ddr4_sdram_c0_reset_n,
     input  wire ddr4_400mhz_clk0_clk_n,
     input  wire ddr4_400mhz_clk0_clk_p,
@@ -75,8 +75,8 @@ module riscv_wrapper (
     input  wire ddr4_400mhz_clk3_clk_p,
 
     /* IIC */
-    inout  wire iic_main_scl_io,
-    inout  wire iic_main_sda_io,
+    //inout  wire iic_main_scl_io,
+    //inout  wire iic_main_sda_io,
 
     /* PCIe */
     input  wire [7:0]pci_express_x16_rxn,
@@ -108,25 +108,25 @@ module riscv_wrapper (
     output wire [1:0]   qsfp0_fs
     );
 
-wire iic_main_scl_i;
-wire iic_main_scl_o;
-wire iic_main_scl_t;
-
-IOBUF iic_main_scl_iobuf (
-    .I(iic_main_scl_o),
-    .IO(iic_main_scl_io),
-    .O(iic_main_scl_i),
-    .T(iic_main_scl_t));
-
-wire iic_main_sda_i;
-wire iic_main_sda_o;
-wire iic_main_sda_t;
-
-IOBUF iic_main_sda_iobuf (
-    .I(iic_main_sda_o),
-    .IO(iic_main_sda_io),
-    .O(iic_main_sda_i),
-    .T(iic_main_sda_t));
+//wire iic_main_scl_i;
+//wire iic_main_scl_o;
+//wire iic_main_scl_t;
+//
+//IOBUF iic_main_scl_iobuf (
+//    .I(iic_main_scl_o),
+//    .IO(iic_main_scl_io),
+//    .O(iic_main_scl_i),
+//    .T(iic_main_scl_t));
+//
+//wire iic_main_sda_i;
+//wire iic_main_sda_o;
+//wire iic_main_sda_t;
+//
+//IOBUF iic_main_sda_iobuf (
+//    .I(iic_main_sda_o),
+//    .IO(iic_main_sda_io),
+//    .O(iic_main_sda_i),
+//    .T(iic_main_sda_t));
 
 // Ethernet phy initialization reset and clock
 wire eth_clock_ok;
@@ -164,7 +164,8 @@ riscv riscv_i (
     .ddr4_sdram_c0_dqs_c(ddr4_sdram_c0_dqs_c),
     .ddr4_sdram_c0_dqs_t(ddr4_sdram_c0_dqs_t),
     .ddr4_sdram_c0_odt(ddr4_sdram_c0_odt),
-    .ddr4_sdram_c0_par(ddr4_sdram_c0_par),
+    //.ddr4_sdram_c0_par(ddr4_sdram_c0_par),
+    .ddr4_sdram_c0_par(0),
     .ddr4_sdram_c0_reset_n(ddr4_sdram_c0_reset_n),
     .ddr4_400mhz_clk0_clk_n(ddr4_400mhz_clk0_clk_n),
     .ddr4_400mhz_clk0_clk_p(ddr4_400mhz_clk0_clk_p),
@@ -180,7 +181,8 @@ riscv riscv_i (
     .ddr4_sdram_c1_dqs_c(ddr4_sdram_c1_dqs_c),
     .ddr4_sdram_c1_dqs_t(ddr4_sdram_c1_dqs_t),
     .ddr4_sdram_c1_odt(ddr4_sdram_c1_odt),
-    .ddr4_sdram_c1_par(ddr4_sdram_c1_par),
+    //.ddr4_sdram_c1_par(ddr4_sdram_c1_par),
+    .ddr4_sdram_c1_par(0),
     .ddr4_sdram_c1_reset_n(ddr4_sdram_c1_reset_n),
     .ddr4_400mhz_clk1_clk_n(ddr4_400mhz_clk1_clk_n),
     .ddr4_400mhz_clk1_clk_p(ddr4_400mhz_clk1_clk_p),
@@ -196,7 +198,8 @@ riscv riscv_i (
     .ddr4_sdram_c2_dqs_c(ddr4_sdram_c2_dqs_c),
     .ddr4_sdram_c2_dqs_t(ddr4_sdram_c2_dqs_t),
     .ddr4_sdram_c2_odt(ddr4_sdram_c2_odt),
-    .ddr4_sdram_c2_par(ddr4_sdram_c2_par),
+    //.ddr4_sdram_c2_par(ddr4_sdram_c2_par),
+    .ddr4_sdram_c2_par(0),
     .ddr4_sdram_c2_reset_n(ddr4_sdram_c2_reset_n),
     .ddr4_400mhz_clk2_clk_n(ddr4_400mhz_clk2_clk_n),
     .ddr4_400mhz_clk2_clk_p(ddr4_400mhz_clk2_clk_p),
@@ -212,7 +215,8 @@ riscv riscv_i (
     .ddr4_sdram_c3_dqs_c(ddr4_sdram_c3_dqs_c),
     .ddr4_sdram_c3_dqs_t(ddr4_sdram_c3_dqs_t),
     .ddr4_sdram_c3_odt(ddr4_sdram_c3_odt),
-    .ddr4_sdram_c3_par(ddr4_sdram_c3_par),
+    //.ddr4_sdram_c3_par(ddr4_sdram_c3_par),
+    .ddr4_sdram_c3_par(0),
     .ddr4_sdram_c3_reset_n(ddr4_sdram_c3_reset_n),
     .ddr4_400mhz_clk3_clk_n(ddr4_400mhz_clk3_clk_n),
     .ddr4_400mhz_clk3_clk_p(ddr4_400mhz_clk3_clk_p),
@@ -232,12 +236,12 @@ riscv riscv_i (
     .eth_tx_axis_tready(eth_tx_axis_tready),
     .eth_tx_axis_tuser(eth_tx_axis_tuser),
     .eth_tx_axis_tvalid(eth_tx_axis_tvalid),
-    .iic_main_scl_i(iic_main_scl_i),
-    .iic_main_scl_o(iic_main_scl_o),
-    .iic_main_scl_t(iic_main_scl_t),
-    .iic_main_sda_i(iic_main_sda_i),
-    .iic_main_sda_o(iic_main_sda_o),
-    .iic_main_sda_t(iic_main_sda_t),
+    .iic_main_scl_i(0),
+    .iic_main_scl_o(0),
+    .iic_main_scl_t(0),
+    .iic_main_sda_i(0),
+    .iic_main_sda_o(0),
+    .iic_main_sda_t(0),
     .pci_express_x16_rxn(pci_express_x16_rxn),
     .pci_express_x16_rxp(pci_express_x16_rxp),
     .pci_express_x16_txn(pci_express_x16_txn),
